@@ -39,8 +39,8 @@ describe('buildGachaProfile', () => {
     expect(profile.totalFiveStars).toBe(3)
     expect(profile.avgPity).toBe(2)
     expect(profile.estimatedPrimogems).toBe(1120)
-    expect(profile.luckTier).toBe('天选欧皇')
-    expect(profile.tags).toContain('出金偏早')
+    expect(profile.luckTier).toBe('天运所归')
+    expect(profile.tags).toEqual([])
 
     const pool301 = profile.pools.find((x) => x.pool === '301')
     expect(pool301).toBeDefined()
@@ -66,7 +66,7 @@ describe('buildGachaProfile', () => {
     expect(profile.totalFiveStars).toBe(0)
     expect(profile.avgPity).toBeNull()
     expect(profile.luckTier).toBe('未出金')
-    expect(profile.tags).toContain('尚未出金')
+    expect(profile.tags).toContain('未出金')
+    expect(profile.tags).toContain('角色池已垫2抽')
   })
 })
-

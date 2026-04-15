@@ -39,13 +39,15 @@ const avgOrNull = (list: number[]): number | null => {
 
 const resolveLuckTier = (avgPity: number | null): string => {
   if (avgPity === null) return '未出金'
-  if (avgPity <= 35) return '天选欧皇'
-  if (avgPity <= 45) return '超级欧皇'
-  if (avgPity <= 55) return '小欧'
-  if (avgPity <= 65) return '平稳'
-  if (avgPity <= 75) return '小非'
-  if (avgPity <= 85) return '大非'
-  return '至尊非酋'
+  if (avgPity <= 35) return '天运所归'
+  if (avgPity <= 45) return '终极欧皇'
+  if (avgPity <= 55) return '大欧皇'
+  if (avgPity <= 65) return '小欧皇'
+  if (avgPity <= 72) return '小有运气'
+  if (avgPity <= 78) return '平民'
+  if (avgPity <= 84) return '小非酋'
+  if (avgPity <= 90) return '大非酋'
+  return '终极非酋'
 }
 
 const resolveTags = (pools: PoolProfile[], avgPity: number | null, totalFiveStars: number): string[] => {
@@ -53,11 +55,10 @@ const resolveTags = (pools: PoolProfile[], avgPity: number | null, totalFiveStar
   const characterPool = pools.find((x) => x.pool === '301')
   const weaponPool = pools.find((x) => x.pool === '302')
 
-  if (totalFiveStars === 0) tags.push('尚未出金')
+  if (totalFiveStars === 0) tags.push('未出金')
   if (avgPity !== null && avgPity >= 70) tags.push('常吃保底')
-  if (avgPity !== null && avgPity <= 45) tags.push('出金偏早')
-  if (characterPool && characterPool.currentPity >= 70) tags.push('角色池临近保底')
-  if (weaponPool && weaponPool.currentPity >= 60) tags.push('武器池临近保底')
+  if (characterPool && characterPool.currentPity > 0) tags.push(`角色池已垫${characterPool.currentPity}抽`)
+  if (weaponPool && weaponPool.currentPity > 0) tags.push(`武器池已垫${weaponPool.currentPity}抽`)
 
   return tags
 }
@@ -116,4 +117,3 @@ export const buildGachaProfile = (result: Map<string, WishRecord[]>, selectedPoo
     pools
   }
 }
-
